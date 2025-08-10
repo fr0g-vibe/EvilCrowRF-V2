@@ -464,6 +464,745 @@ Attack Time: <3 seconds for brute force
    - Use RTL-SDR for analysis
    - Practice with HackRF/YARD Stick One
 
+## Attack Playbooks
+
+### Playbook 1: Residential Garage Door Penetration
+
+**Objective:** Gain unauthorized access to residential garage
+
+**Pre-Attack Reconnaissance:**
+1. **Visual Inspection:**
+   - Identify garage door manufacturer (common: Chamberlain, LiftMaster, Genie)
+   - Note remote control model if visible
+   - Check for external keypads (additional attack vector)
+
+2. **RF Survey:**
+   ```
+   Initial Scan Parameters:
+   - Frequency Range: 300-450 MHz
+   - Common Frequencies: 315, 318, 390, 433.92 MHz
+   - Modulation: Start with ASK/OOK
+   - RxBW: 325 kHz (wide scan)
+   ```
+
+3. **Target Identification:**
+   - Wait for legitimate use
+   - Capture and analyze signal
+   - Determine exact frequency and parameters
+
+**Attack Execution:**
+
+**Phase 1 - Fixed Code Attack (Older Systems):**
+```
+1. Configure RX:
+   Module: 1
+   Frequency: [Detected frequency]
+   Modulation: ASK/OOK
+   RxBW: 58 kHz
+   Data Rate: 2-10 kbps
+
+2. Capture legitimate signal
+3. Analyze for fixed pattern
+4. Configure TX with same parameters
+5. Replay captured signal
+```
+
+**Phase 2 - Rolling Code Attack (Modern Systems):**
+```
+1. Setup Dual Module Configuration:
+   Module 1 (Jamming):
+   - Frequency: [Target freq]
+   - Continuous noise transmission
+   
+   Module 2 (Capture):
+   - Frequency: [Target freq]
+   - RxBW: 58 kHz
+   - Ready to capture
+
+2. Execute RollJam:
+   - Start jamming
+   - Victim presses button (no response)
+   - Capture first code
+   - Victim presses again
+   - Stop jamming briefly
+   - Capture second code
+   - Resume jamming
+
+3. Exploitation:
+   - Stop jamming
+   - Transmit first code (door opens)
+   - Save second code for future use
+```
+
+**Post-Exploitation:**
+- Document successful parameters
+- Test range limitations
+- Identify detection methods
+- Plan persistent access
+
+### Playbook 2: Corporate Building Access System
+
+**Objective:** Bypass RF-based access control
+
+**Phase 1 - Intelligence Gathering:**
+```
+1. Identify Access Points:
+   - Employee entrances
+   - Parking gates
+   - Loading docks
+   - Emergency exits
+
+2. Technology Assessment:
+   - Observe employees using fobs
+   - Identify reader manufacturers
+   - Note LED/sound feedback
+   - Check for visible FCC IDs
+
+3. Timing Analysis:
+   - Peak entry times (7-9 AM)
+   - Shift changes
+   - Lunch periods
+   - After-hours access
+```
+
+**Phase 2 - Signal Intelligence:**
+```
+1. Passive Collection Setup:
+   Module: 1
+   Frequency: 315/433.92 MHz (common)
+   Modulation: ASK/OOK
+   RxBW: 325 kHz (wide capture)
+   Duration: Full business day
+
+2. Signal Analysis:
+   - Identify unique fob IDs
+   - Detect patterns in usage
+   - Find high-privilege fobs
+   - Map fob to entrance correlation
+```
+
+**Phase 3 - Active Exploitation:**
+```
+1. Target Selection:
+   - Choose high-privilege fob
+   - Verify after-hours access
+   - Confirm no two-factor auth
+
+2. Capture Strategy:
+   - Position near target employee
+   - Use directional antenna
+   - Capture during legitimate use
+   - Verify clean capture
+
+3. Replay Attack:
+   - Test at low-traffic times
+   - Start with non-critical doors
+   - Escalate to secure areas
+   - Maintain operational security
+```
+
+### Playbook 3: Vehicle Keyless Entry Compromise
+
+**Target:** Modern vehicles with RF key fobs
+
+**Pre-Attack Vehicle Research:**
+```
+1. Identify Vehicle:
+   - Make, model, year
+   - Key fob type (check FCC ID)
+   - Known vulnerabilities database
+   - Regional frequency variants
+
+2. Common Frequencies by Region:
+   - North America: 315 MHz
+   - Europe: 433.92 MHz
+   - Japan: 312-315 MHz
+   - Multi-region: 868 MHz
+```
+
+**Attack Methodology:**
+
+**Method 1 - RollJam Attack:**
+```
+Equipment Setup:
+- Evil Crow RF V2
+- Directional antenna (optional)
+- Laptop for logging
+- External battery pack
+
+Execution:
+1. Position near target vehicle
+2. Configure dual-module setup
+3. Wait for owner approach
+4. Execute jamming sequence
+5. Capture unlock codes
+6. Allow final unlock
+7. Retain codes for later
+```
+
+**Method 2 - Relay Attack (Passive Entry):**
+```
+Requirements:
+- Two Evil Crow devices
+- Communication channel
+- Proximity to both car and key
+
+Setup:
+Device 1 (Near Car):
+- Module 1: RX on LF (125-134 kHz)
+- Module 2: TX on UHF
+
+Device 2 (Near Key):
+- Module 1: TX on LF
+- Module 2: RX on UHF
+
+Execution:
+1. Car transmits LF challenge
+2. Device 1 captures and relays
+3. Device 2 transmits to key
+4. Key responds with UHF
+5. Device 2 captures response
+6. Device 1 replays to car
+7. Car unlocks/starts
+```
+
+### Playbook 4: Smart Home Ecosystem Attack
+
+**Objective:** Compromise home automation system
+
+**Target Devices:**
+```
+Priority Targets:
+1. Smart locks
+2. Alarm systems
+3. Garage doors
+4. Security cameras
+5. Environmental controls
+```
+
+**Reconnaissance Phase:**
+```
+1. External Survey:
+   - Identify visible devices
+   - Note manufacturer labels
+   - Check for FCC IDs
+   - Map device locations
+
+2. RF Mapping:
+   Frequency Scan:
+   - 315 MHz (Honeywell, DSC)
+   - 319.5 MHz (Qolsys)
+   - 345 MHz (Honeywell 5800)
+   - 433.92 MHz (Generic)
+   - 868 MHz (Z-Wave EU)
+   - 908.42 MHz (Z-Wave US)
+
+3. Signal Intelligence:
+   - Monitor for 24 hours
+   - Identify device patterns
+   - Map communication flow
+   - Find critical sensors
+```
+
+**Exploitation Strategies:**
+
+**Strategy 1 - Sensor Spoofing:**
+```
+Target: Window/Door Sensors
+1. Capture "closed" signal
+2. Replay during intrusion
+3. Suppress "open" alerts
+4. Maintain stealth entry
+```
+
+**Strategy 2 - Alarm Disarmament:**
+```
+Target: Wireless Keypads
+1. Capture disarm sequence
+2. Analyze for rolling code
+3. Replay or predict next
+4. Disable alarm system
+```
+
+**Strategy 3 - Camera Blinding:**
+```
+Target: Wireless Cameras
+1. Identify video frequency
+2. Generate interference
+3. Cause connection loss
+4. Create blind spots
+```
+
+### Playbook 5: Industrial/SCADA Attack
+
+**WARNING:** Only perform with explicit authorization!
+
+**Target Systems:**
+```
+Common Targets:
+- Crane controls
+- Gate operators
+- Emergency stops
+- Sensor networks
+- Telemetry systems
+```
+
+**Safety Considerations:**
+```
+Critical Safety:
+1. Never interfere with emergency stops
+2. Avoid active industrial processes
+3. Coordinate with safety personnel
+4. Have emergency shutdown plan
+5. Document all actions
+```
+
+**Attack Phases:**
+
+**Phase 1 - Passive Reconnaissance:**
+```
+RF Survey Parameters:
+- 72-76 MHz (Industrial RC)
+- 150-174 MHz (VHF Industrial)
+- 450-470 MHz (UHF Industrial)
+- 902-928 MHz (ISM Band)
+
+Signal Collection:
+- Extended monitoring period
+- Identify control patterns
+- Map operator schedules
+- Document all findings
+```
+
+**Phase 2 - Protocol Analysis:**
+```
+1. Capture control sequences
+2. Identify command structure
+3. Decode safety interlocks
+4. Map function codes
+5. Build command library
+```
+
+**Phase 3 - Controlled Testing:**
+```
+1. Isolated system only
+2. Start with status queries
+3. Test non-critical functions
+4. Verify safety systems
+5. Document vulnerabilities
+```
+
+## Vulnerability Databases
+
+### Manufacturer-Specific Vulnerabilities
+
+#### Chamberlain/LiftMaster
+
+**Security+ 1.0 (1998-2004):**
+```
+Frequency: 390 MHz
+Modulation: ASK/OOK
+Vulnerability: Weak rolling code
+Attack: RollJam effective
+Time to Compromise: <1 minute
+```
+
+**Security+ 2.0 (2011-present):**
+```
+Frequency: 310/315/390 MHz
+Modulation: ASK/OOK
+Vulnerability: Timing attacks
+Attack: Advanced RollJam
+Time to Compromise: 2-5 minutes
+```
+
+**MyQ Systems:**
+```
+Primary: 315/390 MHz RF
+Secondary: WiFi connected
+Vulnerability: RF still vulnerable
+Attack: Capture RF, ignore WiFi
+```
+
+#### Linear/Moore-O-Matic
+
+**MegaCode (1997-present):**
+```
+Frequency: 318 MHz
+Modulation: ASK/OOK
+Code Format: 20-bit fixed + 20-bit rolling
+Vulnerability: Fixed portion replay
+Attack: Partial code exploitation
+```
+
+**Multi-Code:**
+```
+Frequency: 300-318 MHz
+Modulation: ASK/OOK
+Code Format: 10-12 bit fixed
+Vulnerability: Brute force feasible
+Attack Time: <1 minute
+```
+
+#### Genie/Overhead Door
+
+**Intellicode (1995-present):**
+```
+Frequency: 315/390 MHz
+Modulation: ASK/OOK
+Vulnerability: RollJam susceptible
+Additional: Some fixed code compatible
+```
+
+**Fixed Code Models:**
+```
+Frequency: 390 MHz
+Code Length: 9-12 bits
+Attack: Direct brute force
+Time: 10-40 seconds
+```
+
+### Vehicle Key Fob Database
+
+#### Ford/Lincoln/Mercury
+
+**2010-2017 Models:**
+```
+Frequency: 315 MHz (US), 433.92 MHz (EU)
+Modulation: ASK/OOK
+Protocol: 40-bit rolling code
+Vulnerability: RollJam effective
+```
+
+**2018+ Models:**
+```
+Frequency: 902-928 MHz (some models)
+Modulation: 2-FSK
+Security: Enhanced rolling code
+Attack: Relay attacks still possible
+```
+
+#### General Motors (Chevrolet/GMC/Cadillac)
+
+**2006-2013:**
+```
+Frequency: 315 MHz
+Modulation: ASK/OOK
+Vulnerability: Weak randomization
+Attack: RollJam, replay possible
+```
+
+**2014-2020:**
+```
+Frequency: 315/433.92 MHz
+Enhanced Security: Yes
+Vulnerability: Relay attacks
+Attack: Requires two devices
+```
+
+#### Toyota/Lexus
+
+**2008-2015:**
+```
+Frequency: 315 MHz (US), 433.92 MHz (EU)
+Modulation: ASK/OOK
+Code: 40-bit rolling
+Vulnerability: Standard RollJam
+```
+
+**Smart Key Systems:**
+```
+LF: 125-134 kHz
+UHF: 312-315 MHz
+Attack: Relay attack effective
+Range: Up to 100m with amplification
+```
+
+#### Honda/Acura
+
+**2005-2014:**
+```
+Frequency: 315/433.92 MHz
+Modulation: ASK/OOK
+Vulnerability: Fixed portion in code
+Attack: Partial replay possible
+```
+
+**2015+:**
+```
+Enhanced Rolling Code: Yes
+Vulnerability: Relay attacks
+Additional: Some models use 2-FSK
+```
+
+### Smart Home Device Database
+
+#### Ring Alarm
+
+**Sensors:**
+```
+Frequency: 908.42 MHz (Z-Wave)
+Modulation: 2-FSK
+Encryption: AES-128
+Vulnerability: Jamming possible
+```
+
+**Keypads:**
+```
+Frequency: 908.42 MHz
+Protocol: Z-Wave Plus
+Attack: Capture during pairing
+```
+
+#### SimpliSafe
+
+**Gen 1/2:**
+```
+Frequency: 315/433.92 MHz
+Modulation: ASK/OOK
+Encryption: None
+Vulnerability: Replay attacks
+```
+
+**Gen 3:**
+```
+Frequency: 433.92 MHz
+Encryption: Proprietary
+Vulnerability: Jamming only
+```
+
+#### ADT/Honeywell
+
+**5800 Series:**
+```
+Frequency: 345 MHz
+Modulation: ASK/OOK
+Protocol: Fixed 24-bit ID
+Vulnerability: ID spoofing
+```
+
+**SiX Series:**
+```
+Frequency: 345 MHz
+Encryption: 128-bit AES
+Vulnerability: Limited
+Attack: Jamming primary option
+```
+
+### TPMS Sensor Database
+
+#### Schrader (OEM for many brands)
+
+**Gen 3/4:**
+```
+Frequency: 315/433.92 MHz
+Modulation: 2-FSK
+Data Rate: 9.6-19.2 kbps
+ID Length: 32 bits
+Attack: ID cloning possible
+```
+
+#### Continental/VDO
+
+**REDI-Sensor:**
+```
+Frequency: 315/433.92 MHz
+Protocol: Proprietary
+Vulnerability: Replay during learning
+Attack: Trigger warning lights
+```
+
+#### Pacific/TRW
+
+**Standard Sensors:**
+```
+Frequency: 315/433.92 MHz
+Modulation: ASK/OOK or 2-FSK
+Vulnerability: No encryption
+Attack: Direct spoofing
+```
+
+## Attack Pattern Recognition
+
+### Defensive Signatures
+
+**Rolling Code Indicators:**
+```
+1. Signal changes each transmission
+2. No two captures identical
+3. Counter incrementing visible
+4. Timestamp correlation
+```
+
+**Encrypted Signal Indicators:**
+```
+1. No visible patterns
+2. High entropy data
+3. Consistent packet length
+4. Preamble followed by noise
+```
+
+**Frequency Hopping Indicators:**
+```
+1. Signal appears intermittent
+2. Multiple frequencies active
+3. Synchronized patterns
+4. Predictable hop sequence
+```
+
+### Attack Success Indicators
+
+**Fixed Code Success:**
+```
+1. Replay works repeatedly
+2. Same code always effective
+3. No timeout observed
+4. Simple implementation
+```
+
+**Rolling Code Compromise:**
+```
+1. Captured code works once
+2. System accepts old codes
+3. Counter can be manipulated
+4. Desynchronization possible
+```
+
+**Jamming Effectiveness:**
+```
+1. Legitimate signals blocked
+2. Target shows no response
+3. User repeatedly tries
+4. Opportunity for capture
+```
+
+## Advanced Techniques Database
+
+### Signal Manipulation Techniques
+
+**Bit Flipping:**
+```
+Purpose: Modify specific commands
+Method: 
+1. Identify command bits
+2. Flip targeted bits
+3. Recalculate checksum
+4. Transmit modified signal
+```
+
+**Packet Injection:**
+```
+Purpose: Insert malicious commands
+Method:
+1. Understand packet structure
+2. Craft custom packets
+3. Time injection properly
+4. Overwhelm legitimate signals
+```
+
+**Replay with Modification:**
+```
+Purpose: Alter captured signals
+Method:
+1. Capture legitimate signal
+2. Decode protocol structure
+3. Modify payload data
+4. Update error checking
+5. Transmit modified version
+```
+
+### Protocol Reverse Engineering
+
+**Step-by-Step Methodology:**
+```
+1. Capture Multiple Samples:
+   - Same command repeated
+   - Different commands
+   - Different devices
+   - Various conditions
+
+2. Identify Structure:
+   - Preamble/sync pattern
+   - Device ID location
+   - Command bits
+   - Checksum/CRC
+
+3. Decode Encoding:
+   - Manchester
+   - PWM
+   - Raw binary
+   - Custom schemes
+
+4. Understand Logic:
+   - Command mapping
+   - State machines
+   - Security features
+   - Error handling
+```
+
+## Tool Integration Database
+
+### Software Tools
+
+**URH (Universal Radio Hacker):**
+```
+Purpose: Signal analysis
+Integration: 
+- Export Evil Crow captures
+- Import for deep analysis
+- Generate attack patterns
+- Export back to Evil Crow
+```
+
+**GNU Radio:**
+```
+Purpose: Advanced signal processing
+Use Cases:
+- Custom modulation schemes
+- Protocol development
+- Signal generation
+- Real-time analysis
+```
+
+**Inspectrum:**
+```
+Purpose: Visual signal analysis
+Benefits:
+- Waterfall visualization
+- Timing measurement
+- Pattern recognition
+- Export capabilities
+```
+
+### Hardware Combinations
+
+**Evil Crow + HackRF:**
+```
+Setup: 
+- Evil Crow for targeted TX
+- HackRF for wideband RX
+- Coordinated attacks
+- Extended frequency range
+```
+
+**Evil Crow + RTL-SDR:**
+```
+Configuration:
+- RTL-SDR for monitoring
+- Evil Crow for active attacks
+- Cost-effective solution
+- Multiple frequency coverage
+```
+
+**Evil Crow + YARD Stick One:**
+```
+Advantages:
+- Redundant capabilities
+- Different frequency bands
+- Backup device ready
+- Specialized attacks each
+```
+
 ## Additional Attack Techniques
 
 ### 11. Relay Attack on Keyless Entry Systems
