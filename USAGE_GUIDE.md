@@ -1203,6 +1203,624 @@ Advantages:
 - Specialized attacks each
 ```
 
+## HackRF Integration and Advanced Capabilities
+
+### HackRF One Specifications
+```
+Frequency Range: 1 MHz - 6 GHz
+Sample Rate: Up to 20 Msps
+Bandwidth: Up to 20 MHz
+TX Power: Up to +20 dBm
+RX Sensitivity: -120 dBm @ 10 Hz bandwidth
+Interface: USB 2.0
+```
+
+### Evil Crow + HackRF Combined Operations
+
+#### Wideband Spectrum Surveillance
+```
+HackRF Role:
+- Continuous spectrum monitoring (1 MHz - 6 GHz)
+- Identify active frequencies
+- Detect frequency hopping patterns
+- Record wideband captures
+
+Evil Crow Role:
+- Targeted narrow-band operations
+- Precision attacks on identified frequencies
+- Real-time exploitation
+- Dual-frequency attacks
+```
+
+#### Advanced Attack Configurations
+
+**Configuration 1: Spectrum Dominance**
+```
+HackRF:
+- Mode: Wideband RX
+- Range: 300 MHz - 1 GHz
+- Purpose: Signal discovery
+- Software: SDR# or GQRX
+
+Evil Crow:
+- Module 1: Active jamming
+- Module 2: Targeted capture
+- Purpose: Selective exploitation
+```
+
+**Configuration 2: Multi-Protocol Attack**
+```
+HackRF:
+- Target: 2.4 GHz WiFi/Bluetooth
+- Mode: Monitor and inject
+- Tool: Scapy + GNURadio
+
+Evil Crow:
+- Target: Sub-GHz devices
+- Mode: Replay attacks
+- Focus: IoT/Smart home
+```
+
+**Configuration 3: Relay Attack Extension**
+```
+Device Setup:
+- HackRF at target location
+- Evil Crow near victim
+- Network link between devices
+- Real-time signal relay
+
+Capabilities:
+- Extended range (kilometers)
+- Multiple frequency support
+- Protocol translation
+- Signal amplification
+```
+
+### HackRF-Specific Attack Playbooks
+
+#### Playbook 6: Cellular Network Exploitation
+
+**WARNING:** Illegal in most jurisdictions! Research only!
+
+**Objective:** Analyze cellular communications
+
+**Equipment:**
+```
+- HackRF One
+- Evil Crow RF V2
+- High-gain antennas
+- Faraday cage/box
+- Linux laptop
+```
+
+**Phase 1 - Passive Analysis:**
+```
+GSM 900 MHz Band:
+- Uplink: 890-915 MHz
+- Downlink: 935-960 MHz
+
+GSM 1800 MHz Band:
+- Uplink: 1710-1785 MHz
+- Downlink: 1805-1880 MHz
+
+Tools:
+- gr-gsm
+- Wireshark
+- IMSI-catcher detector
+```
+
+**Phase 2 - IMSI Catcher Detection:**
+```
+1. Monitor cell tower broadcasts
+2. Identify anomalous base stations
+3. Track signal strength patterns
+4. Detect downgrade attacks
+5. Log suspicious activity
+```
+
+#### Playbook 7: Aviation Band Monitoring
+
+**LEGAL WARNING:** TX on aviation frequencies is illegal!
+
+**Monitoring Only Configuration:**
+```
+HackRF Settings:
+- Frequency: 108-137 MHz (VHF Air Band)
+- Mode: AM demodulation
+- Bandwidth: 8.33/25 kHz channel spacing
+- Software: GQRX, SDR#
+
+Common Frequencies:
+- 121.5 MHz: Emergency
+- 122.75 MHz: Air-to-air
+- 118-136 MHz: ATC communications
+```
+
+**Data Collection:**
+```
+1. ACARS Messages:
+   - Frequency: 131.550 MHz (US)
+   - Protocol: ACARS
+   - Decoder: acarsdec
+
+2. ADS-B Tracking:
+   - Frequency: 1090 MHz
+   - Protocol: Mode S
+   - Decoder: dump1090
+```
+
+#### Playbook 8: Smart City Infrastructure
+
+**Target:** Municipal IoT systems
+
+**Reconnaissance Phase:**
+```
+HackRF Scanning:
+1. LoRaWAN Frequencies:
+   - US: 902-928 MHz
+   - EU: 863-870 MHz
+   - AS: 915-928 MHz
+
+2. Smart Meter Mesh:
+   - 900 MHz ISM band
+   - 2.4 GHz Zigbee
+   - Proprietary protocols
+
+3. Traffic Control:
+   - 5.8 GHz DSRC
+   - 900 MHz sensors
+   - 2.4 GHz cameras
+```
+
+**Attack Vectors:**
+```
+1. Parking Sensor Spoofing:
+   - Frequency: 900 MHz
+   - Attack: False occupancy data
+   - Tool: HackRF + GNU Radio
+
+2. Smart Streetlight Control:
+   - Frequency: 900 MHz/2.4 GHz
+   - Attack: Command injection
+   - Method: Protocol reverse engineering
+
+3. Environmental Sensor Manipulation:
+   - Target: Air quality sensors
+   - Method: Data injection
+   - Impact: False readings
+```
+
+#### Playbook 9: Satellite Communication Interception
+
+**Equipment Required:**
+```
+- HackRF One
+- LNA (Low Noise Amplifier)
+- Dish antenna or Yagi
+- SDR software suite
+```
+
+**Target Satellites:**
+
+**1. Weather Satellites (NOAA):**
+```
+Frequencies:
+- NOAA 15: 137.620 MHz
+- NOAA 18: 137.9125 MHz
+- NOAA 19: 137.100 MHz
+
+Reception:
+- Mode: FM
+- Bandwidth: 40 kHz
+- Software: WXtoImg, SDR#
+```
+
+**2. Amateur Radio Satellites:**
+```
+Common Bands:
+- 2m uplink: 144-146 MHz
+- 70cm downlink: 435-438 MHz
+
+Doppler Correction:
+- Use Gpredict for tracking
+- Automatic frequency adjustment
+- Record passes for analysis
+```
+
+#### Playbook 10: RFID/NFC Extended Range Attacks
+
+**Combining HackRF + Evil Crow:**
+
+**Setup:**
+```
+HackRF:
+- Frequency: 13.56 MHz (HF RFID)
+- Mode: Amplified relay
+- Power: Maximum legal limit
+
+Evil Crow:
+- Frequency: 125 kHz (LF RFID)
+- Mode: Capture and replay
+- Focus: Access cards
+```
+
+**Attack Methodology:**
+```
+1. Long-Range RFID Reading:
+   - HackRF with custom antenna
+   - Amplify reader signal
+   - Capture from 1-2 meters
+   - Relay to Evil Crow
+
+2. RFID Fuzzing:
+   - Generate malformed packets
+   - Test reader vulnerabilities
+   - Cause denial of service
+   - Extract error information
+```
+
+### Advanced Multi-Device Scenarios
+
+#### Scenario 1: Corporate Espionage Defense Testing
+
+**Objective:** Test organization's RF security posture
+
+**Phase 1 - Comprehensive RF Survey:**
+```
+HackRF Tasks:
+1. Full spectrum scan (DC-6 GHz)
+2. Identify all RF emissions
+3. Catalog device signatures
+4. Detect rogue transmitters
+
+Evil Crow Tasks:
+1. Focus on identified threats
+2. Attempt exploitation
+3. Test jamming resistance
+4. Verify security measures
+```
+
+**Phase 2 - Vulnerability Assessment:**
+```
+Target Categories:
+1. Wireless Keyboards/Mice
+   - HackRF: 2.4 GHz monitoring
+   - Evil Crow: Keystroke injection
+
+2. Conference Room Systems:
+   - HackRF: Wideband audio search
+   - Evil Crow: Control signal replay
+
+3. Building Automation:
+   - HackRF: Protocol identification
+   - Evil Crow: Command injection
+
+4. Executive Key Fobs:
+   - HackRF: Frequency detection
+   - Evil Crow: RollJam attack
+```
+
+#### Scenario 2: Smart Home Penetration Test
+
+**Complete Home RF Audit:**
+
+**Discovery Phase (HackRF):**
+```
+Scan Schedule:
+1. 300-348 MHz: Sensors, remotes
+2. 433.92 MHz: Generic devices
+3. 868 MHz: Z-Wave EU
+4. 908 MHz: Z-Wave US
+5. 2.4 GHz: WiFi, Zigbee, BLE
+6. 5.8 GHz: WiFi 5/6
+
+Time: 24-hour monitoring
+Goal: Complete device inventory
+```
+
+**Exploitation Phase (Evil Crow):**
+```
+Priority Targets:
+1. Smart Locks:
+   - Capture unlock codes
+   - Test replay resistance
+   - Attempt RollJam
+
+2. Security System:
+   - Sensor spoofing
+   - Alarm suppression
+   - Keypad code capture
+
+3. Garage Door:
+   - Fixed/rolling code test
+   - Range extension attack
+   - Timing analysis
+```
+
+#### Scenario 3: Vehicle Security Assessment
+
+**Modern Vehicle Complete Test:**
+
+**Equipment Configuration:**
+```
+HackRF:
+- TPMS monitoring (315/433 MHz)
+- Keyless entry analysis
+- Cellular modem detection
+- Bluetooth/WiFi scanning
+
+Evil Crow:
+- Key fob exploitation
+- TPMS spoofing
+- Remote start attacks
+- Alarm system tests
+```
+
+**Attack Progression:**
+```
+1. Passive Reconnaissance:
+   - Identify all RF systems
+   - Map communication patterns
+   - Detect encryption usage
+
+2. Active Testing:
+   - Replay attacks
+   - Relay attacks
+   - Jamming resistance
+   - Protocol fuzzing
+
+3. Advanced Exploitation:
+   - CAN bus injection via RF
+   - Telematics manipulation
+   - Emergency system tests
+```
+
+### HackRF + Evil Crow Protocol Attacks
+
+#### Complex Protocol Exploitation
+
+**1. Frequency Hopping Systems:**
+```
+HackRF Role:
+- Wideband capture
+- Hop pattern analysis
+- Timing measurement
+- Pattern prediction
+
+Evil Crow Role:
+- Targeted jamming
+- Synchronized transmission
+- Selective interference
+- Replay on predicted channel
+```
+
+**2. FHSS Attack Example:**
+```
+# HackRF captures hopping pattern
+Capture bandwidth: 20 MHz
+Center frequency: 915 MHz
+Duration: 60 seconds
+
+# Analysis reveals:
+- 50 channels
+- 100ms dwell time
+- Predictable sequence
+
+# Evil Crow exploitation:
+- Predict next 5 hops
+- Jam current channel
+- Inject on next channel
+```
+
+**3. Time-Slotted Protocols:**
+```
+HackRF Analysis:
+- Identify time slots
+- Map device assignments
+- Find quiet periods
+
+Evil Crow Attack:
+- Inject during quiet slots
+- Overwhelm specific device
+- Cause protocol confusion
+```
+
+### Advanced Signal Generation
+
+#### Custom Waveform Attacks
+
+**1. Chirp Jamming:**
+```
+HackRF Configuration:
+- Start: 430 MHz
+- Stop: 440 MHz
+- Duration: 10ms
+- Repeat: Continuous
+
+Effect: Wideband interference
+Target: All 433 MHz devices
+```
+
+**2. Targeted Interference:**
+```
+Multi-tone Generation:
+- F1: 433.92 MHz (primary)
+- F2: 433.90 MHz (guard)
+- F3: 433.94 MHz (guard)
+- Power: Distributed
+
+Purpose: Selective jamming
+Precision: ±10 kHz
+```
+
+### Defensive Countermeasures Testing
+
+#### RF Security Validation
+
+**1. Jamming Resistance Test:**
+```
+HackRF Setup:
+- Generate interference
+- Vary power levels
+- Test multiple patterns
+
+Evil Crow Verification:
+- Attempt communication
+- Measure success rate
+- Find weak points
+```
+
+**2. Replay Attack Defense:**
+```
+Test Methodology:
+1. HackRF records all traffic
+2. Evil Crow replays after delays
+3. Test time windows:
+   - Immediate (0-1s)
+   - Short (1-60s)
+   - Medium (1-60min)
+   - Long (>1 hour)
+```
+
+### Software Tool Integration
+
+#### GNU Radio Flowgraphs
+
+**1. Wideband Scanner:**
+```
+Source: HackRF
+Processing: FFT, Peak Detection
+Sink: TCP Server
+Integration: Evil Crow auto-config
+```
+
+**2. Protocol Decoder:**
+```
+Input: HackRF IQ samples
+Demodulation: Custom block
+Protocol: Reverse engineered
+Output: Evil Crow commands
+```
+
+#### Custom Scripts
+
+**1. Frequency Hopper Predictor:**
+```python
+# Pseudo-code structure
+def predict_next_hop(captured_pattern):
+    # Analyze timing
+    # Identify sequence
+    # Calculate next frequency
+    # Send to Evil Crow
+    return next_frequency
+```
+
+**2. Automated Exploitation:**
+```python
+# Scan, identify, and attack
+def auto_exploit():
+    # HackRF: Scan spectrum
+    # Identify vulnerable devices
+    # Evil Crow: Execute attacks
+    # Log results
+```
+
+### Performance Optimization
+
+#### Range Extension Techniques
+
+**1. Directional Antennas:**
+```
+HackRF: 
+- Yagi for 900 MHz
+- Dish for 2.4 GHz
+- Gain: 10-20 dBi
+
+Evil Crow:
+- Helical for 433 MHz
+- Patch for specific targets
+- Gain: 6-12 dBi
+```
+
+**2. Amplification Chain:**
+```
+RX Path:
+LNA → HackRF → Processing
+
+TX Path:
+Evil Crow → PA → Antenna
+
+Caution: Respect legal limits!
+```
+
+### Real-World Attack Scenarios
+
+#### Scenario 4: Industrial Facility Assessment
+
+**Target Environment:**
+```
+- SCADA systems
+- Wireless sensors
+- Emergency stops
+- Access control
+```
+
+**Attack Progression:**
+```
+Week 1: Passive Reconnaissance
+- HackRF spectrum survey
+- Identify all RF systems
+- Map communication patterns
+
+Week 2: Protocol Analysis
+- Capture with HackRF
+- Decode with GNU Radio
+- Identify vulnerabilities
+
+Week 3: Controlled Testing
+- Evil Crow targeted attacks
+- Test on isolated systems
+- Verify countermeasures
+```
+
+#### Scenario 5: Transportation Hub Security
+
+**Target Systems:**
+```
+1. Ticketing Systems:
+   - RFID/NFC cards
+   - Wireless validators
+   - Backend communication
+
+2. Vehicle Tracking:
+   - GPS trackers
+   - Fleet management
+   - Maintenance sensors
+
+3. Security Systems:
+   - Wireless cameras
+   - Motion sensors
+   - Panic buttons
+```
+
+**Testing Methodology:**
+```
+Phase 1: Mapping
+- Complete RF inventory
+- Identify critical systems
+- Assess interference risks
+
+Phase 2: Vulnerability Testing
+- Replay attacks
+- Jamming resistance
+- Protocol weaknesses
+
+Phase 3: Reporting
+- Document findings
+- Provide remediation
+- Suggest improvements
+```
+
 ## Additional Attack Techniques
 
 ### 11. Relay Attack on Keyless Entry Systems
@@ -1472,4 +2090,91 @@ def convert_sub_to_raw(flipper_file):
 - 406 MHz (Emergency beacons)
 - Public safety frequencies
 
-This comprehensive guide should help you effectively use the Evil Crow RF V2 for legitimate security testing and research purposes. Remember to always comply with local laws and regulations regarding RF transmission and only test devices you own or have explicit permission to test.
+### Advanced HackRF + Evil Crow Attack Patterns
+
+#### Pattern 1: Cognitive Radio Attack
+```
+Concept: AI-driven frequency selection
+Implementation:
+1. HackRF: Continuous learning
+2. ML model: Pattern recognition
+3. Evil Crow: Adaptive attack
+4. Success rate: Self-improving
+```
+
+#### Pattern 2: Swarm Attack Coordination
+```
+Multiple Devices:
+- 1x HackRF (coordinator)
+- 3x Evil Crow (attackers)
+- Synchronized timing
+- Distributed targeting
+```
+
+#### Pattern 3: Protocol Mutation
+```
+Approach:
+1. Capture valid protocol
+2. Systematically modify
+3. Test each mutation
+4. Find parser bugs
+```
+
+### Future-Proofing Your RF Toolkit
+
+#### Emerging Technologies
+```
+1. 5G/6G Security:
+   - New frequency bands
+   - Advanced modulation
+   - Increased complexity
+
+2. IoT Evolution:
+   - LoRa/LoRaWAN
+   - NB-IoT
+   - Sigfox
+
+3. Quantum-Resistant:
+   - Post-quantum crypto
+   - New protocols
+   - Migration challenges
+```
+
+#### Skill Development Path
+```
+Beginner:
+- Basic replay attacks
+- Simple jamming
+- Fixed code systems
+
+Intermediate:
+- Rolling codes
+- Protocol analysis
+- Multi-device coordination
+
+Advanced:
+- Custom protocols
+- Frequency hopping
+- Full system compromise
+
+Expert:
+- Zero-day discovery
+- Novel attack development
+- Defensive system design
+```
+
+### Conclusion
+
+The combination of Evil Crow RF V2 and HackRF One creates a powerful RF security testing platform capable of addressing virtually any wireless system from 1 MHz to 6 GHz. This expanded guide provides the knowledge needed to conduct thorough security assessments while maintaining legal and ethical standards.
+
+Key Takeaways:
+- Always obtain proper authorization
+- Start with passive reconnaissance
+- Progress methodically through attack phases
+- Document everything thoroughly
+- Share knowledge responsibly
+- Respect the law and others' property
+
+Remember: With great power comes great responsibility. Use these tools and techniques only for legitimate security testing and research purposes. The goal is to improve security, not to cause harm.
+
+This comprehensive guide should help you effectively use the Evil Crow RF V2 with HackRF for legitimate security testing and research purposes. Remember to always comply with local laws and regulations regarding RF transmission and only test devices you own or have explicit permission to test.

@@ -280,6 +280,9 @@ The guide includes:
 - Known vulnerabilities by device type
 - Troubleshooting tips
 - Best practices for testing
+- **NEW: Advanced HackRF integration and combined attack scenarios**
+- **NEW: Wideband spectrum analysis techniques**
+- **NEW: Multi-device coordination strategies**
 
 # Evil Crow RF V2 Support
 
