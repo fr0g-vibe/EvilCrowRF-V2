@@ -283,6 +283,11 @@ The guide includes:
 - **NEW: Advanced HackRF integration and combined attack scenarios**
 - **NEW: Wideband spectrum analysis techniques**
 - **NEW: Multi-device coordination strategies**
+- **NEW: Critical infrastructure testing playbooks**
+- **NEW: Emergency services and aviation systems**
+- **NEW: Military and defense system protocols**
+- **NEW: Complete frequency allocation references**
+- **NEW: Advanced attack matrices and timing coordination**
 
 # Evil Crow RF V2 Support
 

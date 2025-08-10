@@ -2140,6 +2140,570 @@ Approach:
    - Migration challenges
 ```
 
+## Critical Infrastructure Attack Playbooks
+
+### Playbook 11: Emergency Services Communication Systems
+
+**Target:** Public safety radio systems
+
+**Frequency Allocations:**
+```
+VHF Low Band: 30-50 MHz
+VHF High Band: 138-174 MHz
+UHF Band: 450-470 MHz
+700 MHz: 763-775 MHz / 793-805 MHz
+800 MHz: 806-824 MHz / 851-869 MHz
+```
+
+**Common Systems:**
+
+**1. P25 (Project 25) Digital:**
+```
+Modulation: C4FM/CQPSK
+Symbol Rate: 4800 symbols/sec
+Bandwidth: 12.5 kHz
+Encryption: AES-256 (when enabled)
+NAC (Network Access Code): 12-bit
+```
+
+**Attack Vectors:**
+```
+1. Unencrypted Traffic:
+   - Monitor with HackRF
+   - Decode with DSD+
+   - Track unit IDs and talk groups
+
+2. Jamming Attack:
+   - Evil Crow Module 1: Noise on control channel
+   - Evil Crow Module 2: Monitor for failover
+   - Force to backup/simplex mode
+
+3. Unit ID Spoofing:
+   - Capture legitimate unit ID
+   - Transmit with spoofed ID
+   - Cause confusion/misdirection
+```
+
+**2. Analog FM Systems:**
+```
+Modulation: FM
+Deviation: ±5 kHz (wideband) or ±2.5 kHz (narrowband)
+CTCSS/DCS: Sub-audible tones
+Common Tones: 67.0-254.1 Hz
+```
+
+**Exploitation:**
+```
+1. CTCSS/DCS Bypass:
+   - Scan for tone with HackRF
+   - Program Evil Crow with tone
+   - Access repeater system
+
+2. Repeater Jamming:
+   - Transmit on input frequency
+   - Block legitimate traffic
+   - Cause system overload
+```
+
+### Playbook 12: Aviation Systems Exploitation
+
+**Target:** Aircraft communication and navigation
+
+**1. VOR (VHF Omnidirectional Range):**
+```
+Frequency: 108.0-117.95 MHz
+Modulation: AM with 30Hz FM subcarrier
+Evil Crow Settings:
+- Module: 1
+- Modulation: Custom (AM+FM)
+- Frequency: Target VOR
+- Attack: False bearing transmission
+```
+
+**2. ILS (Instrument Landing System):**
+```
+Localizer: 108.10-111.95 MHz (odd decimals)
+Glideslope: 329.15-335.0 MHz
+Modulation: AM with 90/150 Hz tones
+Attack: Spoofed approach guidance
+```
+
+**3. DME (Distance Measuring Equipment):**
+```
+Aircraft Interrogation: 1025-1150 MHz
+Ground Reply: 962-1213 MHz
+Pulse Pairs: 12μs spacing
+Evil Crow + HackRF Attack:
+- HackRF: Capture interrogation
+- Evil Crow: False distance replies
+```
+
+**4. ACARS (Aircraft Communications):**
+```
+Frequencies:
+- 131.550 MHz (Primary US)
+- 130.025 MHz (Secondary)
+- 131.725 MHz (Europe)
+Modulation: AM/ACSK
+Data Rate: 2400 bps
+Attack: Message injection/modification
+```
+
+### Playbook 13: Maritime Communication Systems
+
+**Target:** Ship communication and navigation
+
+**1. AIS (Automatic Identification System):**
+```
+Frequency: 161.975/162.025 MHz
+Modulation: GMSK
+Data Rate: 9600 bps
+Evil Crow Config:
+- Module: 2 (2-FSK capable)
+- Frequency: 161.975 MHz
+- Deviation: 2.4 kHz
+- Attack: Ghost ship creation
+```
+
+**2. Marine VHF:**
+```
+Channel 16: 156.8 MHz (Emergency)
+Channel 70: 156.525 MHz (DSC)
+Modulation: FM
+Deviation: ±5 kHz
+Attack: False distress calls
+```
+
+**3. EPIRB (Emergency Beacon):**
+```
+Frequency: 406.0-406.1 MHz
+Modulation: BPSK
+Data Rate: 400 bps
+Protocol: Includes GPS location
+Attack: False emergency broadcast
+```
+
+### Playbook 14: Railway Control Systems
+
+**Target:** Train control and signaling
+
+**1. PTC (Positive Train Control):**
+```
+Frequency: 220 MHz band
+Modulation: Various digital
+Protocol: Proprietary per railroad
+Attack Vectors:
+- Command injection
+- Location spoofing
+- Emergency brake activation
+```
+
+**2. CBTC (Communications-Based Train Control):**
+```
+Frequency: 2.4 GHz or 5.8 GHz
+Protocol: IEEE 802.11 variants
+Evil Crow + HackRF:
+- HackRF: Monitor WiFi
+- Evil Crow: Sub-GHz backup systems
+```
+
+**3. Track Circuit Manipulation:**
+```
+Frequency: Audio range (50-10,000 Hz)
+Method: Inductive coupling
+Attack: False occupancy signals
+Equipment: Modified Evil Crow with audio amp
+```
+
+### Playbook 15: Power Grid SCADA Systems
+
+**Target:** Electrical grid control
+
+**1. Distribution Automation:**
+```
+Common Frequencies:
+- 900 MHz ISM
+- 450-470 MHz UHF
+- 150-174 MHz VHF
+Protocols: DNP3, IEC 61850
+Modulation: FSK, PSK variants
+```
+
+**Attack Scenarios:**
+```
+1. Capacitor Bank Control:
+   - Frequency: 451.5 MHz
+   - Command: Toggle capacitor banks
+   - Impact: Voltage instability
+
+2. Recloser Manipulation:
+   - Target: Automatic circuit reclosers
+   - Attack: Prevent auto-reclose
+   - Result: Extended outages
+
+3. SCADA Sensor Spoofing:
+   - Fake voltage readings
+   - False current measurements
+   - Trigger protective actions
+```
+
+**2. Synchrophasor (PMU) Networks:**
+```
+Communication: Various RF links
+Data Rate: 30-120 samples/second
+Attack: Time sync manipulation
+Impact: Grid instability
+```
+
+### Playbook 16: Military and Defense Systems
+
+**Target:** Military communication systems
+
+**1. SINCGARS (Army Radios):**
+```
+Frequency: 30-87.975 MHz
+Hop Rate: 111 hops/second
+Modulation: FM
+Evil Crow Attack:
+- Follower jamming
+- Partial band jamming
+```
+
+**2. Have Quick (Air Force):**
+```
+Frequency: 225-399.975 MHz
+Hop Pattern: Time-based
+Modulation: AM
+Attack: TOD synchronization exploit
+```
+
+**3. Link 16 (JTIDS):**
+```
+Frequency: 960-1215 MHz
+Modulation: MSK
+Time Slots: 128 per second
+HackRF + Evil Crow:
+- HackRF: Wideband capture
+- Analysis: Timing patterns
+- Evil Crow: Targeted jamming
+```
+
+### Playbook 17: Cellular Network Infrastructure
+
+**Target:** Mobile network base stations
+
+**1. GSM Base Station Spoofing:**
+```
+GSM 900:
+- Uplink: 890-915 MHz
+- Downlink: 935-960 MHz
+
+GSM 1800:
+- Uplink: 1710-1785 MHz
+- Downlink: 1805-1880 MHz
+
+Evil Crow + HackRF Setup:
+- HackRF: Fake BTS transmission
+- Evil Crow: Jam legitimate towers
+- Force connection to rogue BTS
+```
+
+**2. LTE eNodeB Attacks:**
+```
+Bands (US):
+- Band 2: 1850-1990 MHz
+- Band 4: 1710-2155 MHz
+- Band 12: 698-746 MHz
+
+Attack Methods:
+- Rogue eNodeB creation
+- Downgrade attacks
+- Location tracking
+```
+
+**3. 5G gNodeB Exploitation:**
+```
+Sub-6 GHz Bands:
+- n71: 617-698 MHz
+- n41: 2496-2690 MHz
+- n77: 3300-4200 MHz
+
+Vulnerabilities:
+- Beam tracking exploitation
+- Synchronization signal spoofing
+- Network slicing attacks
+```
+
+### Playbook 18: Satellite Communication Systems
+
+**Target:** VSAT and satellite phones
+
+**1. Inmarsat:**
+```
+L-band: 1525-1559 MHz (downlink)
+        1626.5-1660.5 MHz (uplink)
+Modulation: Various PSK
+Attack: Signal interception/jamming
+```
+
+**2. Iridium:**
+```
+Frequency: 1616-1626.5 MHz
+Modulation: QPSK/DE-QPSK
+Time Slots: TDMA
+Evil Crow Config:
+- Module: 2
+- Modulation: 2-FSK approximation
+- Frequency: 1621.35 MHz center
+```
+
+**3. Thuraya:**
+```
+Frequency: 1525-1661 MHz
+Coverage: Europe, Africa, Asia
+Attack: Selective user jamming
+```
+
+### Playbook 19: Nuclear Facility Systems
+
+**Target:** Nuclear plant safety systems
+
+**WARNING:** Extreme caution required!
+
+**1. Wireless Sensors:**
+```
+Common Frequencies:
+- 900 MHz ISM
+- 2.4 GHz ISM
+- 433 MHz ISM
+Protocols: WirelessHART, ISA100
+Attack: Sensor data manipulation
+```
+
+**2. Emergency Communication:**
+```
+Dedicated Frequencies:
+- VHF: 150-174 MHz
+- UHF: 450-470 MHz
+- 700/800 MHz P25
+Attack: System availability testing
+```
+
+**3. Perimeter Security:**
+```
+Microwave Barriers: 10.525 GHz
+Radar Motion: 24.125 GHz
+RF Tags: 433/868/915 MHz
+Combined Attack Strategy:
+- Blind microwave sensors
+- Spoof RF tags
+- Jam alarm transmission
+```
+
+### Playbook 20: Financial Systems
+
+**Target:** Trading and banking RF systems
+
+**1. Microwave Trading Links:**
+```
+Frequency: 6-23 GHz
+Modulation: QAM-256/1024
+Purpose: Low-latency trading
+Attack: Latency injection
+```
+
+**2. Wireless POS Systems:**
+```
+Frequency: 900 MHz, 2.4 GHz
+Protocol: Various proprietary
+Evil Crow Attack:
+- Capture transaction data
+- Replay authorizations
+- Jam during settlement
+```
+
+**3. ATM Wireless Alarms:**
+```
+Frequency: 433/868 MHz
+Modulation: ASK/OOK
+Attack: Suppress alarm signals
+Timing: During physical attack
+```
+
+## Advanced Protocol Specifications
+
+### Emergency Services Protocols
+
+**P25 Phase 1:**
+```
+Modulation: C4FM
+Symbol Rate: 4800 sps
+Deviation: ±1.8 kHz
+Error Correction: Golay, RS, Trellis
+Voice Codec: IMBE
+```
+
+**P25 Phase 2:**
+```
+Modulation: H-CPM
+Symbol Rate: 6000 sps
+Channels: 2 per 12.5 kHz
+Voice Codec: AMBE+2
+```
+
+**TETRA:**
+```
+Frequency: 380-430 MHz (EU)
+Modulation: π/4-DQPSK
+Symbol Rate: 18 ksps
+Channel: 25 kHz
+Slots: 4 TDMA
+```
+
+### Aviation Protocols
+
+**Mode S Transponder:**
+```
+Interrogation: 1030 MHz
+Reply: 1090 MHz
+Modulation: PPM
+Data Rate: 1 Mbps
+Formats: Short (56 bit), Long (112 bit)
+```
+
+**UAT (978 MHz):**
+```
+Frequency: 978 MHz
+Modulation: Binary CPFSK
+Data Rate: 1.041667 Mbps
+FEC: Reed-Solomon
+```
+
+### Military Specifications
+
+**HAVEQUICK:**
+```
+Frequency: 225-399.975 MHz
+Channels: 7000
+Hop Rate: Variable
+Sync: GPS time-based
+Net ID: 6 bits
+```
+
+**SATURN:**
+```
+Frequency: 225-400 MHz
+Modulation: CPM
+Hop Pattern: Crypto-controlled
+Sync: Distributed
+```
+
+## Frequency Allocation Quick Reference
+
+### Public Safety (US)
+```
+VHF Low: 30-50 MHz
+VHF High: 138-174 MHz
+UHF: 450-512 MHz
+700 MHz: 763-775, 793-805 MHz
+800 MHz: 806-824, 851-869 MHz
+4.9 GHz: 4940-4990 MHz
+```
+
+### Aviation
+```
+VOR: 108.0-117.95 MHz
+ILS LOC: 108.1-111.95 MHz
+ILS GS: 329.15-335.0 MHz
+VHF Comm: 118.0-136.975 MHz
+UHF Comm: 225.0-399.975 MHz
+DME: 960-1215 MHz
+GPS L1: 1575.42 MHz
+GPS L2: 1227.60 MHz
+GPS L5: 1176.45 MHz
+```
+
+### Maritime
+```
+VHF Marine: 156-162 MHz
+MF/HF: 1.6-30 MHz
+AIS: 161.975, 162.025 MHz
+EPIRB: 406.0-406.1 MHz
+Inmarsat: 1.5-1.6 GHz
+```
+
+### Cellular
+```
+GSM 850: 824-894 MHz
+GSM 900: 880-960 MHz
+GSM 1800: 1710-1880 MHz
+GSM 1900: 1850-1990 MHz
+UMTS/LTE: Various bands
+5G NR: 600 MHz - 39 GHz
+```
+
+## Attack Timing and Coordination
+
+### Multi-Stage Attack Patterns
+
+**Pattern 1: Cascading Failure**
+```
+Stage 1: Jam primary system
+Stage 2: Overload backup
+Stage 3: Exploit failover
+Stage 4: Maintain persistence
+```
+
+**Pattern 2: Synchronized Multi-Point**
+```
+Device 1: North sector jamming
+Device 2: South sector jamming
+Device 3: Command injection
+Timing: GPS synchronized
+```
+
+**Pattern 3: Adaptive Response**
+```
+1. Monitor defensive measures
+2. Adjust attack parameters
+3. Switch frequencies
+4. Modify protocols
+5. Maintain effectiveness
+```
+
+## Detection Avoidance Techniques
+
+### Low Probability of Intercept
+```
+1. Frequency Agility:
+   - Random hop patterns
+   - Wide frequency spread
+   - Short burst transmission
+
+2. Power Management:
+   - Minimum necessary power
+   - Directional antennas
+   - Time-limited transmission
+
+3. Protocol Mimicry:
+   - Match legitimate traffic
+   - Proper timing patterns
+   - Valid protocol headers
+```
+
+### Counter-Surveillance
+```
+1. RF Detector Avoidance:
+   - Monitor for scanners
+   - Cease during detection
+   - Change locations
+
+2. Direction Finding Countermeasures:
+   - Multiple transmission sites
+   - Reflector confusion
+   - Decoy transmitters
+```
+
 #### Skill Development Path
 ```
 Beginner:
@@ -2163,18 +2727,187 @@ Expert:
 - Defensive system design
 ```
 
+## Specialized Attack Configurations
+
+### Configuration Templates
+
+**1. Emergency Services Penetration Test:**
+```
+Evil Crow Module 1:
+- Frequency: Control channel
+- Mode: Monitoring/Jamming
+- Modulation: C4FM
+- Deviation: 1.8 kHz
+
+Evil Crow Module 2:
+- Frequency: Tactical channel
+- Mode: Capture/Replay
+- Modulation: C4FM
+- Data Rate: 4800 sps
+
+HackRF:
+- Mode: Wideband recording
+- Range: Entire band
+- Bandwidth: 20 MHz
+- Purpose: Evidence collection
+```
+
+**2. Aviation System Test:**
+```
+Evil Crow Config:
+- Module 1: VOR spoofing
+- Module 2: DME responses
+- Coordination: Time-synced
+
+HackRF Config:
+- Monitor: 1030/1090 MHz
+- Decode: Mode S/ADS-B
+- Record: All transponder data
+```
+
+**3. Cellular Infrastructure Test:**
+```
+Setup A (GSM):
+- HackRF: Fake BTS on ARFCN 50
+- Evil Crow 1: Jam ARFCN 1-49
+- Evil Crow 2: Jam ARFCN 51-124
+
+Setup B (LTE):
+- HackRF: Rogue eNodeB
+- Evil Crow: PSS/SSS spoofing
+- Target: Force downgrade
+```
+
+### Performance Optimization Guide
+
+**Maximum Range Achievement:**
+```
+1. Antenna Selection:
+   - 433 MHz: 5-7 dBi whip
+   - 900 MHz: 9 dBi Yagi
+   - 2.4 GHz: 14 dBi panel
+
+2. Power Settings:
+   - Evil Crow: Maximum legal
+   - Add LNA for RX
+   - Add PA for TX (check laws)
+
+3. Environmental Factors:
+   - Height advantage
+   - Line of sight
+   - Weather conditions
+```
+
+**Minimum Detection Profile:**
+```
+1. Burst Transmission:
+   - Duration: <100ms
+   - Interval: Random 1-10s
+   - Power: Adaptive
+
+2. Frequency Diversity:
+   - Hop every transmission
+   - Use full band
+   - Avoid patterns
+
+3. Protocol Matching:
+   - Mimic legitimate traffic
+   - Proper preambles
+   - Valid checksums
+```
+
+## Complete Attack Matrices
+
+### System Vulnerability Matrix
+
+| System Type | Frequency | Modulation | Vulnerability | Attack Time |
+|------------|-----------|------------|---------------|-------------|
+| P25 Phase 1 | VHF/UHF/700/800 | C4FM | Unencrypted common | Immediate |
+| TETRA | 380-430 MHz | π/4-DQPSK | End-to-end timing | 5-10 min |
+| DMR | VHF/UHF | 4FSK | Color code scanning | 1-2 min |
+| NXDN | VHF/UHF | 4FSK | RAN spoofing | 2-5 min |
+| dPMR | 446 MHz | 4FSK | Simple protocol | <1 min |
+| GSM | 900/1800 MHz | GMSK | A5/1 weakness | 10-30 min |
+| DECT | 1880-1900 MHz | GFSK | Pairing intercept | 5-15 min |
+| LoRa | 433/868/915 MHz | CSS | Join procedure | 10-20 min |
+
+### Frequency/Protocol Quick Lookup
+
+| Application | Frequency | Protocol | Evil Crow Settings |
+|------------|-----------|----------|-------------------|
+| Garage Door | 300-450 MHz | Fixed/Rolling | ASK/OOK, 58 kHz BW |
+| Car Remote | 315/433 MHz | Rolling | ASK/OOK, 58 kHz BW |
+| TPMS | 315/433 MHz | Various | 2-FSK, 38 kHz dev |
+| Smart Meter | 900 MHz | Mesh | 2-FSK, 50 kHz dev |
+| Baby Monitor | 49/900/2400 MHz | Analog/Digital | FM/2-FSK |
+| Wireless Mic | 500-700 MHz | FM | FM, 200 kHz dev |
+| RC Toy | 27/49/72 MHz | AM/FM | AM/FM, simple |
+| Weather Station | 433/915 MHz | Various | ASK/OOK, 58 kHz BW |
+
+## Final Advanced Techniques
+
+### Zero-Day Discovery Methodology
+
+**1. Protocol Fuzzing Framework:**
+```
+Step 1: Capture legitimate traffic
+Step 2: Identify packet structure
+Step 3: Systematic bit flipping
+Step 4: Monitor device response
+Step 5: Document crashes/anomalies
+```
+
+**2. Side-Channel Analysis:**
+```
+- Power consumption monitoring
+- Timing analysis
+- EM emissions correlation
+- Acoustic signatures
+```
+
+**3. Cryptographic Weaknesses:**
+```
+- Weak PRNG detection
+- Key reuse identification
+- IV prediction
+- Padding oracle detection
+```
+
+### Ultimate Defensive Recommendations
+
+**For Critical Infrastructure:**
+```
+1. Implement frequency hopping
+2. Use strong encryption (AES-256)
+3. Enable mutual authentication
+4. Deploy RF monitoring systems
+5. Regular penetration testing
+6. Incident response planning
+```
+
+**For Consumer Devices:**
+```
+1. Rolling codes mandatory
+2. Timestamp validation
+3. Rate limiting
+4. Jamming detection
+5. Fail-secure design
+```
+
 ### Conclusion
 
-The combination of Evil Crow RF V2 and HackRF One creates a powerful RF security testing platform capable of addressing virtually any wireless system from 1 MHz to 6 GHz. This expanded guide provides the knowledge needed to conduct thorough security assessments while maintaining legal and ethical standards.
+This comprehensive guide covers the full spectrum of RF security testing with Evil Crow RF V2 and HackRF One, from basic garage door attacks to critical infrastructure assessments. The techniques and configurations provided enable thorough security evaluations across all wireless systems.
 
-Key Takeaways:
-- Always obtain proper authorization
-- Start with passive reconnaissance
-- Progress methodically through attack phases
-- Document everything thoroughly
-- Share knowledge responsibly
-- Respect the law and others' property
+**Critical Reminders:**
+- This knowledge is for authorized testing only
+- Always verify legal permissions
+- Document all testing activities
+- Report vulnerabilities responsibly
+- Protect critical infrastructure
+- Advance the field of security
 
-Remember: With great power comes great responsibility. Use these tools and techniques only for legitimate security testing and research purposes. The goal is to improve security, not to cause harm.
+The combination of Evil Crow RF V2 and HackRF One represents one of the most capable RF security testing platforms available. Use this power wisely to improve security, not to cause harm.
 
-This comprehensive guide should help you effectively use the Evil Crow RF V2 with HackRF for legitimate security testing and research purposes. Remember to always comply with local laws and regulations regarding RF transmission and only test devices you own or have explicit permission to test.
+Remember: The goal is always to identify and fix vulnerabilities before malicious actors can exploit them. Every test should make our wireless world more secure.
+
+This comprehensive guide should help you effectively use the Evil Crow RF V2 with HackRF for legitimate security testing and research purposes. With your proper authorizations in place, these tools and techniques will enable thorough assessment of RF security across all domains.
