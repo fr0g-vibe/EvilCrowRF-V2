@@ -273,13 +273,16 @@ Demo: https://www.youtube.com/shorts/K_Qkss6-pEY
 For detailed information about modulation types, common attack scenarios, configuration parameters, and best practices, please refer to the [Comprehensive Usage Guide](USAGE_GUIDE.md).
 
 The guide includes:
-- Detailed explanation of hardware capabilities
-- Modulation types and their use cases
-- Step-by-step attack scenarios
-- Configuration parameters explained
-- Known vulnerabilities by device type
-- Troubleshooting tips
-- Best practices for testing
+- **Attack Playbooks**: Step-by-step guides for common penetration tests
+- **Device Signal Database**: Known parameters for common devices
+- **Troubleshooting Decision Trees**: Visual guides for problem-solving
+- **Hardware Capabilities**: Detailed explanation of modules and frequencies
+- **Modulation Types**: When and how to use each type
+- **Attack Scenarios**: From basic replay to advanced techniques
+- **Configuration Parameters**: Detailed explanations
+- **Known Vulnerabilities**: By device type and manufacturer
+- **Safety Checklists**: Pre-engagement requirements
+- **Quick Reference**: Printable reference card
 
 # Evil Crow RF V2 Support
 
