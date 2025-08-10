@@ -58,7 +58,8 @@ You can invite me for a coffee to further develop Low-Cost hacking devices. If y
 	* Wi-Fi Config
 	* Power management
 	* Other Sketches
-4. Evil Crow RF V2 Support
+4. Comprehensive Usage Guide
+5. Evil Crow RF V2 Support
 
 # NOTE
 
@@ -266,6 +267,19 @@ Demo: https://www.youtube.com/shorts/K_Qkss6-pEY
 
 * Mousejacking: EvilCrowRF-V2/firmware/other/standalone-mousejacking
 * ...
+
+# Comprehensive Usage Guide
+
+For detailed information about modulation types, common attack scenarios, configuration parameters, and best practices, please refer to the [Comprehensive Usage Guide](USAGE_GUIDE.md).
+
+The guide includes:
+- Detailed explanation of hardware capabilities
+- Modulation types and their use cases
+- Step-by-step attack scenarios
+- Configuration parameters explained
+- Known vulnerabilities by device type
+- Troubleshooting tips
+- Best practices for testing
 
 # Evil Crow RF V2 Support
 
